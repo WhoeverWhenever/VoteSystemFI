@@ -8,11 +8,14 @@ namespace VoteSystem.Data.Repositories
     public interface IUserRepository
     {
         void CreateUser(User user);
+        void CreateUserPolicy(UserPolicy userPolicy);
         void UpdateUser(User user);
         bool IsInRegion(int regionId, int userId);
         List<User> GetAllUsersForRegion(int regionId);
-        public List<UserPolicy> GetAllUserPolicies();
+        public List<int> GetAllUserPollIdsWithPolicies(int id);
         public bool UserExists(string paspCode, int IndefCode);
         public User GetUser(string PaspCode, int IndefCode);
+        public User GetUser(int Id);
+        public int GetRegionId(int userId);
     }
 }

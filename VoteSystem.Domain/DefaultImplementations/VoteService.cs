@@ -8,10 +8,10 @@ using VoteSystem.Domain.Interfaces;
 
 namespace VoteSystem.Domain.DefaultImplementations
 {
-    class MakeVote : IVoteService
+    class VoteService : IVoteService
     {
         IVoteRepository _voteRepos;
-        public MakeVote(IVoteRepository voteRepository)
+        public VoteService(IVoteRepository voteRepository)
         {
             _voteRepos = voteRepository;
         }
@@ -23,7 +23,7 @@ namespace VoteSystem.Domain.DefaultImplementations
             };
             var vote = new Vote()
             {
-                userId = user.Id,
+                UserId = user.Id,
                 VoteDate = DateTime.Now
             };
             vote.VoteChoices.Add(votechoice);

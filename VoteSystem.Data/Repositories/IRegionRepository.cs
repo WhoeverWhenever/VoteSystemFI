@@ -11,6 +11,6 @@ namespace VoteSystem.Data.Repositories
         void UpdateRegion(Region region);
         public Region Get(int id);
         public int GetRegiondIdByName(string name);
-        public List<RegionPolicy> GetAllRegionPolicies(int id);
+        public List<int> GetAllPollIdsForRegionPolicies(int id);
     }
 }

@@ -42,11 +42,17 @@ namespace VoteSystem.EF.Repositories
             }
         }
 
-        public List<RegionPolicy> GetAllRegionPolicies(int id)
+        public List<int> GetAllPollIdsForRegionPolicies(int id)
         {
-            using (var ctx = new VoteContext())
+            using (VoteContext voteContext = new VoteContext())
             {
-                return ctx.RegionPolicies.ToList().Where(p => p.Id == id).ToList();
+                List<RegionPolicy> regionPolicies = voteContext.RegionPolicies.Where(p => p.Region.Id == id).ToList();
+                List<int> outlist = new List<int>();
+                foreach (var a in regionPolicies)
+                {
+                    outlist.Add((a.PollId).Value);
+                }
+                return outlist;
             }
         }
     }

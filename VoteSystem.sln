@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30711.63
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VoteSystemConsole", "VoteSystemConsole\VoteSystemConsole.csproj", "{D88C27E3-AA64-4E41-956C-655ECBFF0010}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VoteSystem.Data", "VoteSystem.Data\VoteSystem.Data.csproj", "{E1E87761-30C3-4C33-828E-7E57E8E08FFA}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VoteSystem.EF", "VoteSystem.EF\VoteSystem.EF.csproj", "{CDEAC785-B8C3-4678-8849-440C8D1C0CC7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoteSystem.Domain", "VoteSystem.Domain\VoteSystem.Domain.csproj", "{9442F230-D3AC-45DD-B88F-F2BBF1B694E8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VoteSystem.Domain", "VoteSystem.Domain\VoteSystem.Domain.csproj", "{9442F230-D3AC-45DD-B88F-F2BBF1B694E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoteSystem.Cosnole", "VoteSystem.Console\VoteSystem.Cosnole.csproj", "{66B5DEA2-825D-441B-840B-2FBE818A5DBD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D88C27E3-AA64-4E41-956C-655ECBFF0010}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D88C27E3-AA64-4E41-956C-655ECBFF0010}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D88C27E3-AA64-4E41-956C-655ECBFF0010}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D88C27E3-AA64-4E41-956C-655ECBFF0010}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E1E87761-30C3-4C33-828E-7E57E8E08FFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E1E87761-30C3-4C33-828E-7E57E8E08FFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E1E87761-30C3-4C33-828E-7E57E8E08FFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -33,6 +29,10 @@ Global
 		{9442F230-D3AC-45DD-B88F-F2BBF1B694E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9442F230-D3AC-45DD-B88F-F2BBF1B694E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9442F230-D3AC-45DD-B88F-F2BBF1B694E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66B5DEA2-825D-441B-840B-2FBE818A5DBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66B5DEA2-825D-441B-840B-2FBE818A5DBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66B5DEA2-825D-441B-840B-2FBE818A5DBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66B5DEA2-825D-441B-840B-2FBE818A5DBD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -8,7 +8,7 @@ namespace VoteSystem.Data.Entities.VoteAggregate
     {
         public int Id { get; set; }
         public DateTime VoteDate { get; set; }
-        public int userId { get; set; }
+        public int UserId { get; set; }
         public List<VoteChoice> VoteChoices { get; set; }
     }
 }

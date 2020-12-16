@@ -17,6 +17,14 @@ namespace VoteSystem.EF.Repositories
                 voteContext.SaveChangesAsync();
             }
         }
+        public void CreateUserPolicy(UserPolicy userPolicy)
+        {
+            using (VoteContext voteContext = new VoteContext())
+            {
+                voteContext.UserPolicies.Add(userPolicy);
+                voteContext.SaveChangesAsync();
+            }
+        }
         public bool UserExists(string paspCode, int IndefCode)
         {
             using (VoteContext voteContext = new VoteContext())
@@ -51,11 +59,17 @@ namespace VoteSystem.EF.Repositories
             }
         }
 
-        public List<UserPolicy> GetAllUserPolicies()
+        public List<int> GetAllUserPollIdsWithPolicies(int id)
         {
             using (VoteContext voteContext = new VoteContext())
             {
-                return voteContext.UserPolicies.ToList();
+                List<UserPolicy> userPolicies = voteContext.UserPolicies.Where(p => p.user.Id == id).ToList();
+                List<int> outlist = new List<int>();
+                foreach (var a in userPolicies)
+                {
+                    outlist.Add((a.PollId).Value);
+                }
+                return outlist;
             }
         }
         public User GetUser(string PaspCode, int IndefCode)
@@ -64,6 +78,21 @@ namespace VoteSystem.EF.Repositories
             {
                 return voteContext.Users.
                     FirstOrDefault(p => (p.PassportCode == PaspCode) && (p.IdentificationCode == IndefCode));
+            }
+        }
+        public User GetUser(int Id)
+        {
+            using (VoteContext voteContext = new VoteContext())
+            {
+                return voteContext.Users.
+                    FirstOrDefault(p => p.Id == Id);
+            }
+        }
+        public int GetRegionId(int userId)
+        {
+            using (VoteContext voteContext = new VoteContext())
+            {
+                return voteContext.Users.FirstOrDefault(u => u.Id == userId).RegionId;
             }
         }
     }
