@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace VoteSystem.EF.Repositories
 {
-    class RegionRepository : IRegionRepository
+    public class RegionRepository : IRegionRepository
     {
         public void CreateRegion(Region region)
         {

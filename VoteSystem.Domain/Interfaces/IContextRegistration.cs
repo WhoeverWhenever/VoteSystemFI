@@ -8,6 +8,6 @@ namespace VoteSystem.Domain.Interfaces
     public interface IContextRegistration
     {
         bool SetPasswordInfo(string passportCode, int indefCode);
-        string[] GetPassportInfo();
+        Tuple<string, int> GetPassportInfo();
     }
 }

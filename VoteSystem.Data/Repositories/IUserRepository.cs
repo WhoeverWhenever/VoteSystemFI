@@ -16,6 +16,7 @@ namespace VoteSystem.Data.Repositories
         public bool UserExists(string paspCode, int IndefCode);
         public User GetUser(string PaspCode, int IndefCode);
         public User GetUser(int Id);
+        public int GetUserId(string name);
         public int GetRegionId(int userId);
     }
 }

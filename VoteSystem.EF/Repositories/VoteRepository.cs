@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace VoteSystem.EF.Repositories
 {
-    class VoteRepository : IVoteRepository
+    public class VoteRepository : IVoteRepository
     {
         public void Create(Vote vote)
         {

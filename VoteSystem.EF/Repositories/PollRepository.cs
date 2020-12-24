@@ -7,7 +7,7 @@ using VoteSystem.Data.Repositories;
 
 namespace VoteSystem.EF.Repositories
 {
-    class PollRepository : IPollRepository
+    public class PollRepository : IPollRepository
     {
         public void Create(Poll poll)
         {
@@ -17,12 +17,48 @@ namespace VoteSystem.EF.Repositories
                 ctx.SaveChanges();
             }
         }
-
+        public void CreateChoice(Choice choice, int pollId)
+        {
+            using (var ctx = new VoteContext())
+            {
+                if(ctx.Polls.FirstOrDefault(p => p.Id == pollId).Choices == null);
+                    ctx.Polls.FirstOrDefault(p => p.Id == pollId).Choices = new List<Choice>();
+                ctx.Choices.Add(choice);
+                ctx.Polls.FirstOrDefault(p => p.Id == pollId).Choices.Add(choice);
+                ctx.SaveChanges();
+            }
+        }
+        public void AddChoiceToPoll(Choice choice, int pollId)
+        {
+            using (var ctx = new VoteContext())
+            {
+                ctx.Polls.FirstOrDefault(p => p.Id == pollId).Choices.Add(choice);
+                ctx.SaveChanges();
+            }
+        }
         public Poll Get(int id)
         {
             using (var ctx = new VoteContext())
                 return ctx.Polls.FirstOrDefault(p => p.Id == id);
         }
+        public Poll Get(string pollName)
+        {
+            using (var ctx = new VoteContext())
+            {
+                return ctx.Polls.FirstOrDefault(p => p.Name == pollName);
+            }
+        }
+        public List<Choice> GetChoices(int pollId)
+        {
+            using (var ctx = new VoteContext())
+            {
+                List<Choice> choices = ctx.Polls.FirstOrDefault(p => p.Id == pollId).Choices;
+                if (choices == null)
+                    choices = new List<Choice>();
+                return choices;
+            }
+        }
+
         public Choice GetChoice(int choiceId)
         {
             using (var ctx = new VoteContext())

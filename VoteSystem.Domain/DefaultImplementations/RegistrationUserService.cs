@@ -6,7 +6,7 @@ using VoteSystem.Domain.Interfaces;
 
 namespace VoteSystem.Domain.DefaultImplementations
 {
-    class RegistrationUserService : IRegistrationUserService
+    public class RegistrationUserService : IRegistrationUserService
     {
         IVoteRepository _voteRepos;
         IRegionRepository _regionRepos;
@@ -21,8 +21,8 @@ namespace VoteSystem.Domain.DefaultImplementations
         }
         public bool RegistrateUser(string Name, string Surname, string Email, string password, string RegionName)
         {
-            string PaspCode = _contextRegistration.GetPassportInfo()[0];
-            int IndefCode = Int32.Parse(_contextRegistration.GetPassportInfo()[1]);
+            string PaspCode = _contextRegistration.GetPassportInfo().Item1;
+            int IndefCode = _contextRegistration.GetPassportInfo().Item2;
             var user = _userRepos.GetUser(PaspCode, IndefCode);
             user.Name = Name;
             user.Surname = Surname;

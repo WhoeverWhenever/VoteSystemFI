@@ -8,7 +8,7 @@ using VoteSystem.Domain.Interfaces;
 
 namespace VoteSystem.Domain.DefaultImplementations
 {
-    class VoteService : IVoteService
+    public class VoteService : IVoteService
     {
         IVoteRepository _voteRepos;
         public VoteService(IVoteRepository voteRepository)
@@ -17,6 +17,7 @@ namespace VoteSystem.Domain.DefaultImplementations
         }
         public Vote Vote(User user, int Idchoice)
         {
+            // PolicyChecker
             var votechoice = new VoteChoice()
             {
                 choiceId = Idchoice
@@ -26,7 +27,9 @@ namespace VoteSystem.Domain.DefaultImplementations
                 UserId = user.Id,
                 VoteDate = DateTime.Now
             };
+
             vote.VoteChoices.Add(votechoice);
+
             _voteRepos.Create(vote);
             return vote;
         }

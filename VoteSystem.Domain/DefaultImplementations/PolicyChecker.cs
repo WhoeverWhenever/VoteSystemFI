@@ -5,16 +5,16 @@ using VoteSystem.Domain.Interfaces;
 
 namespace VoteSystem.Domain.DefaultImplementations
 {
-    class PolicyChecker : IPolicyChecker
+    public class PolicyChecker : IPolicyChecker
     {
-        IPolicyInfo _policyInfo;
-        public PolicyChecker(IPolicyInfo policyInfo)
+        IPollService _policyInfo;
+        public PolicyChecker(IPollService policyInfo)
         {
             _policyInfo = policyInfo;
         }
         public bool CheckPolicy(int userId, int pollId)
         {
-            foreach (var a in _policyInfo.GetAllPolicies(userId))
+            foreach (var a in _policyInfo.GetAllAvailablePollIds(userId))
             {
                 if (a == pollId)
                     return true;

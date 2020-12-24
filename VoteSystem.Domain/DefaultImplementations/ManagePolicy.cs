@@ -7,7 +7,7 @@ using VoteSystem.Domain.Interfaces;
 
 namespace VoteSystem.Domain.DefaultImplementations
 {
-    class ManagePolicy : IManagePolicy
+    public class ManagePolicy : IManagePolicy
     {
         IUserRepository _userRepos;
         public ManagePolicy(IUserRepository userRepository)

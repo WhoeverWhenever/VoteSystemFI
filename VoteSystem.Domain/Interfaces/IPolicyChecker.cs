@@ -4,7 +4,7 @@ using System.Text;
 
 namespace VoteSystem.Domain.Interfaces
 {
-    interface IPolicyChecker
+    public interface IPolicyChecker
     {
         bool CheckPolicy(int userId, int pollId);
     }

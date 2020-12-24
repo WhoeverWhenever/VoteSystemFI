@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace VoteSystem.EF.Repositories
 {
-    class UserRepository : IUserRepository
+    public class UserRepository : IUserRepository
     {
         public void CreateUser(User user)
         {
@@ -21,15 +21,21 @@ namespace VoteSystem.EF.Repositories
         {
             using (VoteContext voteContext = new VoteContext())
             {
+                voteContext.Users.Attach(userPolicy.user);
+                voteContext.Entry(userPolicy.user).State = System.Data.Entity.EntityState.Unchanged;
                 voteContext.UserPolicies.Add(userPolicy);
-                voteContext.SaveChangesAsync();
+                voteContext.SaveChanges();
             }
         }
         public bool UserExists(string paspCode, int IndefCode)
         {
             using (VoteContext voteContext = new VoteContext())
             {
-                return voteContext.Users.FirstOrDefault(u => u.PassportCode == paspCode).IdentificationCode == IndefCode;
+                if (voteContext.Users.FirstOrDefault(u => u.PassportCode == paspCode).IdentificationCode == IndefCode)
+                {
+                    return true;
+                }
+                return false;
             }
         }
 
@@ -88,6 +94,14 @@ namespace VoteSystem.EF.Repositories
                     FirstOrDefault(p => p.Id == Id);
             }
         }
+        public int GetUserId(string name)
+        {
+            using (VoteContext voteContext = new VoteContext())
+            {
+                return voteContext.Users.FirstOrDefault(u => u.Name == name).Id;
+            }
+        }
+
         public int GetRegionId(int userId)
         {
             using (VoteContext voteContext = new VoteContext())
