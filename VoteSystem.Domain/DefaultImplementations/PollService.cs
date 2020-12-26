@@ -39,7 +39,7 @@ namespace VoteSystem.Domain.DefaultImplementations
             return choice;
         }
 
-        public bool CreatePoll(string name, string Desc, int userOwnerId, DateTime start, DateTime end, 
+        public int CreatePoll(string name, string Desc, int userOwnerId, DateTime start, DateTime end, 
                                bool multipleSelection)
         {
             var poll = new Poll()
@@ -52,8 +52,7 @@ namespace VoteSystem.Domain.DefaultImplementations
                 MutlipleSelection = multipleSelection,
                 Choices = new List<Choice>()
             };
-            _pollRepos.Create(poll);
-            return true;
+            return _pollRepos.Create(poll);
         }
 
         public List<int> GetAllAvailablePollIds(int userId)
@@ -62,6 +61,16 @@ namespace VoteSystem.Domain.DefaultImplementations
             allpolicies.AddRange(_userRepos.GetAllUserPollIdsWithPolicies(userId));
             allpolicies.AddRange(_regionRepos.GetAllPollIdsForRegionPolicies(_userRepos.GetRegionId(userId)));
             return allpolicies;
+        }
+
+        public Poll GetPoll(string PollName)
+        {
+            return _pollRepos.Get(PollName);
+        }
+
+        public List<Poll> ShowAllPolls()
+        {
+            return _pollRepos.GetPolls();
         }
     }
 }

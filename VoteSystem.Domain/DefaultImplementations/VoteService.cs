@@ -15,16 +15,15 @@ namespace VoteSystem.Domain.DefaultImplementations
         {
             _voteRepos = voteRepository;
         }
-        public Vote Vote(User user, int Idchoice)
+        public Vote Vote(int userId, int Idchoice)
         {
-            // PolicyChecker
             var votechoice = new VoteChoice()
             {
                 choiceId = Idchoice
             };
             var vote = new Vote()
             {
-                UserId = user.Id,
+                UserId = userId,
                 VoteDate = DateTime.Now
             };
 

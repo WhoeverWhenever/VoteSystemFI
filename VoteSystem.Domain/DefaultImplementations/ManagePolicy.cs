@@ -14,17 +14,37 @@ namespace VoteSystem.Domain.DefaultImplementations
         {
             _userRepos = userRepository;
         }
-        public bool GivePolicyToUser(int userId, int pollId, PolicyType policyType)
+        public bool GivePolicyToUser(int userId, int pollId)
         {
             if (_userRepos.GetUser(userId) == null)
                 return false;
             UserPolicy userPolicy = new UserPolicy()
             {
-                PolicyType = policyType,
+                PolicyType = (PolicyType)0,
                 user = _userRepos.GetUser(userId),
                 PollId = pollId
             };
             _userRepos.CreateUserPolicy(userPolicy);
+            return true;
+        }
+        public bool GiveAdminPolicyToUser(int userId, int pollId)
+        {
+            if (_userRepos.GetUser(userId) == null)
+                return false;
+            UserPolicy userPolicy = new UserPolicy()
+            {
+                PolicyType = (PolicyType)1,
+                user = _userRepos.GetUser(userId),
+                PollId = pollId
+            };
+            UserPolicy userPolicy1 = new UserPolicy()
+            {
+                PolicyType = (PolicyType)0,
+                user = _userRepos.GetUser(userId),
+                PollId = pollId
+            };
+            _userRepos.CreateUserPolicy(userPolicy);
+            _userRepos.CreateUserPolicy(userPolicy1);
             return true;
         }
     }

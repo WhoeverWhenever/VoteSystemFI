@@ -7,16 +7,25 @@ namespace VoteSystem.Domain.DefaultImplementations
 {
     public class PolicyChecker : IPolicyChecker
     {
-        IPollService _policyInfo;
-        public PolicyChecker(IPollService policyInfo)
+        IUserService _userService;
+        public PolicyChecker( IUserService userService)
         {
-            _policyInfo = policyInfo;
+            _userService = userService;
         }
         public bool CheckPolicy(int userId, int pollId)
         {
-            foreach (var a in _policyInfo.GetAllAvailablePollIds(userId))
+            foreach (var a in _userService.GetAllAccessPolicies(userId))
             {
-                if (a == pollId)
+                if (a.PollId == pollId)
+                    return true;
+            }
+            return false;
+        }
+        public bool CheckAdminPolicy(int userId, int pollId)
+        {
+            foreach (var a in _userService.GetAllAdminPolicies(userId))
+            {
+                if (a.PollId == pollId)
                     return true;
             }
             return false;

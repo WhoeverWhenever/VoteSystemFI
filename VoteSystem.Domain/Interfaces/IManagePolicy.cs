@@ -7,6 +7,7 @@ namespace VoteSystem.Domain.Interfaces
 {
     public interface IManagePolicy
     {
-        bool GivePolicyToUser(int userId, int pollId, PolicyType policyType);
+        bool GivePolicyToUser(int userId, int pollId);
+        bool GiveAdminPolicyToUser(int userId, int pollId);
     }
 }

@@ -109,5 +109,29 @@ namespace VoteSystem.EF.Repositories
                 return voteContext.Users.FirstOrDefault(u => u.Id == userId).RegionId;
             }
         }
+
+        public User GetUser(string email)
+        {
+            using (VoteContext voteContext = new VoteContext())
+            {
+                return voteContext.Users.FirstOrDefault(u => u.Email == email);
+            }
+        }
+
+        public List<UserPolicy> GetAllAdminPolicies(int userId)
+        {
+            using (VoteContext voteContext = new VoteContext())
+            { 
+                return voteContext.UserPolicies.Where(u => (u.user.Id == userId) && (u.PolicyType == (PolicyType)1)).ToList();
+            }
+        }
+
+        public List<UserPolicy> GetAllAccessPolicies(int userId)
+        {
+            using (VoteContext voteContext = new VoteContext())
+            {
+                return voteContext.UserPolicies.Where(u => (u.user.Id == userId) && (u.PolicyType == (PolicyType)0)).ToList();
+            }
+        }
     }
 }

@@ -9,22 +9,22 @@ namespace VoteSystem.EF.Repositories
 {
     public class PollRepository : IPollRepository
     {
-        public void Create(Poll poll)
+        public int Create(Poll poll)
         {
             using (var ctx = new VoteContext())
             {
                 ctx.Polls.Add(poll);
                 ctx.SaveChanges();
+                return poll.Id;
             }
         }
         public void CreateChoice(Choice choice, int pollId)
         {
             using (var ctx = new VoteContext())
             {
-                if(ctx.Polls.FirstOrDefault(p => p.Id == pollId).Choices == null);
-                    ctx.Polls.FirstOrDefault(p => p.Id == pollId).Choices = new List<Choice>();
+                ctx.Polls.Attach(choice.Poll);
+                ctx.Entry(choice.Poll).State = System.Data.Entity.EntityState.Unchanged;
                 ctx.Choices.Add(choice);
-                ctx.Polls.FirstOrDefault(p => p.Id == pollId).Choices.Add(choice);
                 ctx.SaveChanges();
             }
         }
@@ -85,7 +85,7 @@ namespace VoteSystem.EF.Repositories
             }
         }
 
-        public List<Poll> GetPolls(int id)
+        public List<Poll> GetPolls()
         {
             using (var ctx = new VoteContext())
             {
