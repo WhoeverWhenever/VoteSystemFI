@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using VoteSystem.Data.Entities.PollAggregate;
 using VoteSystem.Data.Repositories;
@@ -31,7 +32,8 @@ namespace VoteSystem.Domain.DefaultImplementations
             var choice = new Choice()
             {
                 Name = name,
-                Description = desc
+                Description = desc,
+                Poll = GetPoll(_pollRepos.GetPolls().FirstOrDefault(p => p.Id == pollId).Name)
             };
             //choice.Poll = _pollRepos.Get(pollId);
             _pollRepos.GetChoices(pollId).Add(choice);
@@ -61,6 +63,11 @@ namespace VoteSystem.Domain.DefaultImplementations
             allpolicies.AddRange(_userRepos.GetAllUserPollIdsWithPolicies(userId));
             allpolicies.AddRange(_regionRepos.GetAllPollIdsForRegionPolicies(_userRepos.GetRegionId(userId)));
             return allpolicies;
+        }
+
+        public List<Choice> GetChoices(string pollName)
+        {
+            return _pollRepos.GetChoices(_pollRepos.Get(pollName).Id);
         }
 
         public Poll GetPoll(string PollName)

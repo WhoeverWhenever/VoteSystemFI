@@ -37,7 +37,7 @@ namespace VoteSystem.Cosnole
             UserService userService = new UserService(userRepository);
             PollService pollService = new PollService(userRepository, regionRepository, pollRepository);
             PolicyChecker policyChecker = new PolicyChecker(userService);
-            VoteService voteService = new VoteService(voteRepository);
+            VoteService voteService = new VoteService(voteRepository, pollRepository);
             var managePolicy = new ManagePolicy(userRepository);
             IRegistrationUserService registrationUserService = new RegistrationUserService(contextRegistration,
                                                                                            voteRepository,
@@ -143,13 +143,20 @@ namespace VoteSystem.Cosnole
                                 string poll_temp_name = Console.ReadLine(); 
                                 Poll poll2 = pollService.GetPoll(poll_temp_name);
                                 bool policyresponse2 = policyChecker.CheckPolicy(user_temp_id, poll2.Id);
+                                bool multiplevoteresponse = voteService.CheckVote(user_temp_id);
+                                if(multiplevoteresponse == false)
+                                {
+                                    Console.WriteLine("You cant vote more");
+                                    Console.ReadLine();
+                                    break;
+                                }
                                 if (policyresponse2 == false)
                                 {
                                     Console.WriteLine("Sorry, but you cannot vote!");
                                     Console.ReadLine();
                                     break;
                                 }
-                                foreach (var a in pollService.GetPoll(poll_temp_name).Choices)
+                                foreach (var a in pollService.GetChoices(poll_temp_name))
                                 {
                                     Console.WriteLine($"{a.Name} \n {a.Description} \n");
                                 }
@@ -176,11 +183,7 @@ namespace VoteSystem.Cosnole
                                 }
                                 foreach (var a in allChoices)
                                 {
-                                    if (poll2.Choices.FirstOrDefault(c => c.Name == a) != null)
-                                    {
-                                        voteService.Vote(user_temp_id, poll2.Choices.FirstOrDefault(c => c.Name == a).Id);
-                                    }
-                                }
+                                    voteService.Vote(user_temp_id, pollService.GetChoices(poll_temp_name).FirstOrDefault(c => c.Name == a).Id);                                }
                                 break;
                             #endregion
                             #region Policy

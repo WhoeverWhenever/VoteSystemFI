@@ -10,6 +10,7 @@ namespace VoteSystem.Data.Repositories
         int Create(Poll poll);
         void CreateChoice(Choice choice, int pollId);
         List<Choice> GetChoices(int pollId);
+        List<Choice> GetChoices(string pollName);
         void AddChoiceToPoll(Choice choice, int pollId);
         void Update(Poll poll);
         Poll Get(int id);

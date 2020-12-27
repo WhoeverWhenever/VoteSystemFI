@@ -52,7 +52,17 @@ namespace VoteSystem.EF.Repositories
         {
             using (var ctx = new VoteContext())
             {
-                List<Choice> choices = ctx.Polls.FirstOrDefault(p => p.Id == pollId).Choices;
+                List<Choice> choices = ctx.Choices.Where(c => c.Poll.Id == pollId).ToList();
+                if (choices == null)
+                    choices = new List<Choice>();
+                return choices;
+            }
+        }
+        public List<Choice> GetChoices(string pollName)
+        {
+            using (var ctx = new VoteContext())
+            {
+                List<Choice> choices = ctx.Choices.Where(c => c.Poll.Name == pollName).ToList();
                 if (choices == null)
                     choices = new List<Choice>();
                 return choices;

@@ -18,21 +18,18 @@ namespace VoteSystem.EF.Repositories
             }
         }
 
+        //public List<Vote> GetAllForUser(int userId)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
         public List<Vote> GetAllForUser(int userId)
         {
-            throw new NotImplementedException();
+            using (var ctx = new VoteContext())
+            {
+                return ctx.Votes.Where(u => u.UserId == userId).ToList();
+            }
         }
-
-        //        public List<Vote> GetAllForUser(int userId)
-        //        {
-        //            using (var ctx = new VoteContext())
-        //            {
-        //                return ctx.Votes.Where(u => u.userId == userId)
-        //                   .Where(vote => vote.voteStart > DateTime.Now)
-        //                  .Where(vote => vote.voteEnd < DateTime.Now)
-        //                    .ToList();
-        //          }
-        //        }
         public Dictionary<int, int> GetResultInVote(int voteId)
         {
             throw new NotImplementedException();
@@ -62,5 +59,17 @@ namespace VoteSystem.EF.Repositories
         //                ctx.Votes.FirstOrDefault(vote => vote.Id == vote.Id).choiceId = vote.choiceId;
         //            }
         //        }
+
+        public bool ExistingUser(int userId)
+        {
+            using (var ctx = new VoteContext())
+            {
+                return ctx.Votes.Any(u => u.UserId == userId);
+            }
+        }
+        //public List<VoteChoice> GetVoteChoices(int choiceId)
+        //{ 
+            
+        //}
     }
 }
