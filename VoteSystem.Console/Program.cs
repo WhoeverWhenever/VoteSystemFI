@@ -143,13 +143,16 @@ namespace VoteSystem.Cosnole
                                 string poll_temp_name = Console.ReadLine(); 
                                 Poll poll2 = pollService.GetPoll(poll_temp_name);
                                 bool policyresponse2 = policyChecker.CheckPolicy(user_temp_id, poll2.Id);
-                                bool multiplevoteresponse = voteService.CheckVote(user_temp_id);
-                                if(multiplevoteresponse == false)
+
+                                bool multiplevoteresponse = voteService.CheckIfVoted(user_temp_id, poll_temp_name);
+
+                                if (multiplevoteresponse == true)
                                 {
-                                    Console.WriteLine("You cant vote more");
+                                    Console.WriteLine("You have already voted");
                                     Console.ReadLine();
                                     break;
                                 }
+
                                 if (policyresponse2 == false)
                                 {
                                     Console.WriteLine("Sorry, but you cannot vote!");

@@ -35,17 +35,11 @@ namespace VoteSystem.Domain.DefaultImplementations
             _voteRepos.Create(vote);
             return vote;
         }
-        public bool CheckVote(int userId, string pollName)
+
+        public bool CheckIfVoted(int userId, string pollName)
         {
-            foreach (var a in _voteRepos.GetAllForUser(userId))
-            {
-                if (a.Id == )
-                {
-
-                }
-            }
-
-            return true;
+            return _voteRepos.IsVoted(userId, pollName);
         }
+     
     }
 }

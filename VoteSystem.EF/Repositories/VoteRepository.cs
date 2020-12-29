@@ -18,6 +18,40 @@ namespace VoteSystem.EF.Repositories
             }
         }
 
+        public void CreateVoteChoice(VoteChoice voteChoice)
+        {
+            using (VoteContext voteContext = new VoteContext())
+            {
+                voteContext.Votes.Attach(voteChoice.Vote);
+                voteContext.Entry(voteChoice.Vote).State = System.Data.Entity.EntityState.Unchanged;
+                voteContext.VoteChoices.Add(voteChoice);
+                voteContext.SaveChanges();
+            }
+        }
+
+        public bool IsVoted(int userId, string pollName)
+        {
+            using (var ctx = new VoteContext())
+            {
+                var resp = (from v in ctx.Votes
+                           join vc in ctx.VoteChoices on v.Id equals vc.Vote.Id
+                           join c in ctx.Choices on vc.choiceId equals c.Id
+                           join p in ctx.Polls on c.Poll.Id equals p.Id
+                           where v.UserId == userId && p.Name == pollName
+                            select new  { UserId = v.UserId }).ToList();
+
+                if (resp.Count() > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+
+            }
+        }
+
         //public List<Vote> GetAllForUser(int userId)
         //{
         //    throw new NotImplementedException();
